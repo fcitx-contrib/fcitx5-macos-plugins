@@ -1,0 +1,55 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  build:
+    runs-on: macos-13
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Install dependencies
+        run: |
+          brew install \
+            fmt \
+            extra-cmake-modules \
+            json-c \
+            ninja
+
+      - name: Download prebuilt and Fcitx5.app
+        run: |
+          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/local-x86_64.tar.bz2
+          wget https://github.com/fcitx-contrib/fcitx5-macos/releases/download/latest/Fcitx5-x86_64.dmg
+
+      - name: Extract prebuilt and Fcitx5.app
+        run: |
+          tar xjvf local-x86_64.tar.bz2 -C /usr/local --strip-components=1
+          hdiutil attach Fcitx5-x86_64.dmg
+          sudo cp -r /Volumes/Fcitx5/{Fcitx5.app,"Input Methods"}
+
+      - name: Build all
+        run: ./all.sh
+
+      - name: Upload artifact
+        if: ${{ github.ref != 'refs/heads/master' }}
+        uses: actions/upload-artifact@v4
+        with:
+          path: |
+            build/*.tar.bz2
+
+      - name: Release
+        if: ${{ github.ref == 'refs/heads/master' }}
+        uses: 'marvinpinto/action-automatic-releases@latest'
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: latest
+          prerelease: true
+          title: "Nightly Build"
+          files: |
+            build/*.tar.bz2
