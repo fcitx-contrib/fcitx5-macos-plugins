@@ -72,8 +72,17 @@ jobs:
           path: |
             build/*.tar.bz2
 
+  release:
+    needs: build
+    # if: ${{ github.ref == 'refs/heads/master' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          merge-multiple: true
+
       - name: Release
-        if: ${{ github.ref == 'refs/heads/master' }}
         uses: 'marvinpinto/action-automatic-releases@latest'
         with:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
@@ -81,4 +90,4 @@ jobs:
           prerelease: true
           title: "Nightly Build"
           files: |
-            build/*.tar.bz2
+            *.tar.bz2
