@@ -79,7 +79,7 @@ jobs:
         if: ${{ matrix.arch == 'arm64' }}
         run: |
           cd artifact
-          for f in *.tar.bz2; do tar xjvf -C /usr/local $f; done
+          for f in *.tar.bz2; do echo $f; tar xjvf $f -C /usr/local --strip-components=1; done
 
       - name: Build all
         run: ./all.sh ${{ matrix.arch }}
