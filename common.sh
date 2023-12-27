@@ -14,6 +14,7 @@ if [[ $ARCH == x86_64 ]]; then
   HOMEBREW_PREFIX=/usr/local
 else
   HOMEBREW_PREFIX=/opt/homebrew
+  export CMAKE_APPLE_SILICON_PROCESSOR=$ARCH
 fi
 
 f5m_configure() {
