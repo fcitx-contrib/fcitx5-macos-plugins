@@ -3,11 +3,12 @@ name=$1
 export ROOT=`pwd`
 export ADDON_ROOT=`pwd`/fcitx5-$name
 export ADDON_INSTALL_PREFIX=`pwd`/build/$name
+export ARTIFACT_ROOT=`pwd`/artifact/
 
 if [[ -z $2 ]]; then
-  ARCH=`uname -m`
+  export ARCH=`uname -m`
 else
-  ARCH=$2
+  export ARCH=$2
 fi
 
 if [[ $ARCH == x86_64 ]]; then
@@ -36,5 +37,5 @@ f5m_install() {
 
 f5m_make_tarball() {
   cd $ADDON_INSTALL_PREFIX/..
-  tar cjvf $name-$ARCH.tar.bz2 -C $name lib share
+  tar cjvf $name-$ARCH.tar.bz2 -C $name .
 }

@@ -68,6 +68,19 @@ jobs:
           hdiutil attach Fcitx5-${{ matrix.arch }}.dmg
           sudo cp -r /Volumes/Fcitx5/{Fcitx5.app,"Input Methods"}
 
+      - name: Download prebuilt artifacts (arm64)
+        if: ${{ matrix.arch == 'arm64' }}
+        uses: actions/download-artifact@master
+        with:
+          name: artifact-x86_64
+          path: artifact
+
+      - name: Extract prebuilt artifacts (arm64)
+        if: ${{ matrix.arch == 'arm64' }}
+        run: |
+          cd artifact
+          for f in *.tar.bz2; do tar xjvf -C /usr/local $f; done
+
       - name: Build all
         run: ./all.sh ${{ matrix.arch }}
 
