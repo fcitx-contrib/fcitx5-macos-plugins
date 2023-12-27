@@ -1,3 +1,9 @@
 [submodule "fcitx5-hallelujah"]
 	path = fcitx5-hallelujah
 	url = https://github.com/fcitx-contrib/fcitx5-hallelujah
+[submodule "fcitx5-chinese-addons"]
+	path = fcitx5-chinese-addons
+	url = git@github.com:fcitx/fcitx5-chinese-addons.git
+[submodule "libime"]
+	path = libime
+	url = https://github.com/fcitx/libime.git
