@@ -3,8 +3,9 @@
 set -e
 
 all_plugins=(
+    lua
     hallelujah
-    chinese-addons
+    chinese-addons   # Optional dependency: lua
 )
 
 for plugin in "${all_plugins[@]}"

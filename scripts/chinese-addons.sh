@@ -14,7 +14,8 @@ f5m_configure -DENABLE_TEST=OFF \
               -DENABLE_GUI=OFF \
               -DLibIMECore_DIR=$ADDON_INSTALL_PREFIX/lib/cmake/LibIMECore/ \
               -DLibIMEPinyin_DIR=$ADDON_INSTALL_PREFIX/lib/cmake/LibIMEPinyin/ \
-              -DLibIMETable_DIR=$ADDON_INSTALL_PREFIX/lib/cmake/LibIMETable/
+              -DLibIMETable_DIR=$ADDON_INSTALL_PREFIX/lib/cmake/LibIMETable/ \
+              -DCMAKE_PREFIX_PATH=$ADDON_INSTALL_PREFIX/../lua/
 f5m_build
 f5m_install
 
