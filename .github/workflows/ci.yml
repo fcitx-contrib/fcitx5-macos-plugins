@@ -49,7 +49,7 @@ jobs:
             gettext \
             openssl@3 \
             libevent \
-            libzstd \
+            zstd \
             lua \
             boost \
             opencc
