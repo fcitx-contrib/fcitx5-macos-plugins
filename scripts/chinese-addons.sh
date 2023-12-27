@@ -3,8 +3,8 @@ set -e
 
 # Fix cross compile
 if [[ $ARCH != x86_64 ]]; then
-    ( cd "$ROOT/libime/data" && sed -i '' "s|COMMAND LibIME::|COMMAND libime_|" CMakeLists.txt )
-    ( cd "$ADDON_ROOT/im/pinyin" && sed -i '' "s|COMMAND LibIME::|COMMAND libime_|" CMakeLists.txt )
+    ( cd "$ROOT/libime/data" && sed -i '' "s|COMMAND LibIME::|COMMAND /usr/local/bin/libime_|" CMakeLists.txt )
+    ( cd "$ADDON_ROOT/im/pinyin" && sed -i '' "s|COMMAND LibIME::|COMMAND /usr/local/bin/libime_|" CMakeLists.txt )
 fi
 
 ############################
