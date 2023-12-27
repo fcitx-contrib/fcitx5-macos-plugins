@@ -28,7 +28,8 @@ jobs:
             fmt \
             extra-cmake-modules \
             json-c \
-            ninja
+            ninja \
+            lua
 
       - name: Setup arm homebrew
         if: ${{ matrix.arch == 'arm64' }}
@@ -45,7 +46,8 @@ jobs:
             json-c \
             gettext \
             openssl@3 \
-            libevent
+            libevent \
+            lua
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/local-x86_64.tar.bz2
           tar xjvf local-x86_64.tar.bz2 -C /usr/local --strip-components=1 # need marisa-build
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
