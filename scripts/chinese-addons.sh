@@ -9,7 +9,7 @@ f5m_install
 
 # Build fcitx5-chinese-addons
 cd "$ADDON_ROOT"
-sedi 's/add_subdirectory.tools.//' CMakeLists.txt  # HACK: Disable tools
+sed -i'' 's/add_subdirectory.tools.//' CMakeLists.txt  # HACK: Disable tools
 f5m_configure -DENABLE_TEST=OFF \
               -DENABLE_GUI=OFF \
               -DLibIMECore_DIR=$ADDON_INSTALL_PREFIX/lib/cmake/LibIMECore/ \
