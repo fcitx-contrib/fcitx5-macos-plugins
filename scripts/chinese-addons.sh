@@ -8,13 +8,13 @@ f5m_build
 f5m_install
 
 # Build fcitx5-chinese-addons
-cd "$PLUGIN_ROOT"
+cd "$ADDON_ROOT"
 sedi 's/add_subdirectory.tools.//' CMakeLists.txt  # HACK: Disable tools
 f5m_configure -DENABLE_TEST=OFF \
               -DENABLE_GUI=OFF \
-              -DLibIMECore_DIR=$PLUGIN_INSTALL_PREFIX/lib/cmake/LibIMECore/ \
-              -DLibIMEPinyin_DIR=$PLUGIN_INSTALL_PREFIX/lib/cmake/LibIMEPinyin/ \
-              -DLibIMETable_DIR=$PLUGIN_INSTALL_PREFIX/lib/cmake/LibIMETable/
+              -DLibIMECore_DIR=$ADDON_INSTALL_PREFIX/lib/cmake/LibIMECore/ \
+              -DLibIMEPinyin_DIR=$ADDON_INSTALL_PREFIX/lib/cmake/LibIMEPinyin/ \
+              -DLibIMETable_DIR=$ADDON_INSTALL_PREFIX/lib/cmake/LibIMETable/
 f5m_build
 f5m_install
 
@@ -22,5 +22,5 @@ f5m_install
 f5m_make_tarball
 
 # Restore original file contents to make git silent
-cd "$PLUGIN_ROOT"
+cd "$ADDON_ROOT"
 git checkout CMakeLists.txt
