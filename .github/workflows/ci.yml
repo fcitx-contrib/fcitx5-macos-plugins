@@ -61,12 +61,17 @@ jobs:
         run: |
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/local-${{ matrix.arch }}.tar.bz2
           wget https://github.com/fcitx-contrib/fcitx5-macos/releases/download/latest/Fcitx5-${{ matrix.arch }}.dmg
+          wget https://github.com/fcitx-contrib/fcitx5-macos/releases/download/latest/Fcitx5-x86_64.dmg
 
       - name: Extract prebuilt and Fcitx5.app
         run: |
           tar xjvf local-${{ matrix.arch }}.tar.bz2 -C ${{ matrix.homebrew_prefix }} --strip-components=1
           hdiutil attach Fcitx5-${{ matrix.arch }}.dmg
           sudo cp -r /Volumes/Fcitx5/{Fcitx5.app,"Input Methods"}
+          hdiutil detach /Volumes/Fcitx5/
+          hdiutil attach Fcitx5-x86_64.dmg
+          sudo cp -r /Volumes/Fcitx5/Fcitx5.app "/Library/Input Methods/Fcitx5-x86_64.app"
+          hdiutil detach /Volumes/Fcitx5/
 
       - name: Download prebuilt artifacts (arm64)
         if: ${{ matrix.arch == 'arm64' }}

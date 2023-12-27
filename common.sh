@@ -22,6 +22,7 @@ f5m_configure() {
   PKG_CONFIG_PATH="$HOMEBREW_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH" cmake -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_FIND_ROOT_PATH="/Library/Input Methods/Fcitx5.app/Contents;$HOMEBREW_PREFIX" \
+    -DCMAKE_INSTALL_RPATH="/Library/Input Methods/Fcitx5-x86_64.app/Contents/lib" \
     -DCMAKE_OSX_ARCHITECTURES=$ARCH \
     -DCMAKE_INSTALL_PREFIX="$ADDON_INSTALL_PREFIX" \
     "$@"
