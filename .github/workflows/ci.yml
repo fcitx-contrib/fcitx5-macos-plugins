@@ -29,6 +29,7 @@ jobs:
             extra-cmake-modules \
             json-c \
             ninja \
+            lua \
             boost \
             opencc
 
@@ -48,6 +49,7 @@ jobs:
             gettext \
             openssl@3 \
             libevent \
+            lua \
             boost \
             opencc
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/local-x86_64.tar.bz2
