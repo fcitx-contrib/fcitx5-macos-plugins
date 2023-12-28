@@ -1,14 +1,13 @@
 name=$1
 
-export ROOT=`pwd`
-export ADDON_ROOT=`pwd`/fcitx5-$name
-export ADDON_INSTALL_PREFIX=`pwd`/build/$name
-export ARTIFACT_ROOT=`pwd`/artifact/
+ROOT=`pwd`
+ADDON_ROOT=$ROOT/fcitx5-$name
+DESTDIR=$ROOT/build/$name
 
 if [[ -z $2 ]]; then
-  export ARCH=`uname -m`
+  ARCH=`uname -m`
 else
-  export ARCH=$2
+  ARCH=$2
 fi
 
 if [[ $ARCH == x86_64 ]]; then
@@ -19,12 +18,10 @@ fi
 
 f5m_configure() {
   # Install plugins to /usr/local for both arm and x86 to ease fcitx5 search
-  PKG_CONFIG_PATH="$HOMEBREW_PREFIX/lib/pkgconfig:$PKG_CONFIG_PATH" cmake -B build -G Ninja \
+  PKG_CONFIG_PATH=$HOMEBREW_PREFIX/lib/pkgconfig cmake -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_FIND_ROOT_PATH="/Library/Input Methods/Fcitx5.app/Contents;$HOMEBREW_PREFIX" \
-    -DCMAKE_OSX_ARCHITECTURES=$ARCH \
-    -DCMAKE_INSTALL_PREFIX="$ADDON_INSTALL_PREFIX" \
-    "$@"
+    -DCMAKE_OSX_ARCHITECTURES=$ARCH "$@"
 }
 
 f5m_build() {
@@ -32,12 +29,14 @@ f5m_build() {
 }
 
 f5m_install() {
-  cmake --install build
+  cmake --install build # install for other plugins
+  DESTDIR=$DESTDIR cmake --install build # install for package
 }
 
 f5m_make_tarball() {
-  cd $ADDON_INSTALL_PREFIX/
-  tar cjvf ../$name-$ARCH.tar.bz2 *
+  cd $DESTDIR/usr/local
+  tar cjvf ../../../$name-$ARCH.tar.bz2 *
 }
 
 set -x
+cd $ADDON_ROOT

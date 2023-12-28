@@ -1,7 +1,8 @@
 set -e
 . ./common.sh lua $1
 
-cd "$ADDON_ROOT"
+# Turning on dlopen produces wrong config.h,
+# and even fixed it will hard-code lua dylib path in code.
 f5m_configure -DENABLE_TEST=OFF -DUSE_DLOPEN=OFF
 f5m_build
 f5m_install
