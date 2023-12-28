@@ -4,9 +4,6 @@
 [submodule "fcitx5-chinese-addons"]
 	path = fcitx5-chinese-addons
 	url = git@github.com:fcitx/fcitx5-chinese-addons.git
-[submodule "libime"]
-	path = libime
-	url = https://github.com/fcitx/libime.git
 [submodule "fcitx5-lua"]
 	path = fcitx5-lua
 	url = https://github.com/fcitx/fcitx5-lua.git
