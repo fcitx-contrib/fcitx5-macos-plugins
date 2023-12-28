@@ -7,8 +7,8 @@ ARGS=(
     -DENABLE_GUI=OFF
 )
 
-if [[ $ARCH != `uname -m` ]]; then
-    ARGS+="-DENABLE_DATA=OFF"
+if [[ $ARCH != $(uname -m) ]]; then
+    ARGS+=("-DENABLE_DATA=OFF")
 fi
 
 f5m_configure "${ARGS[@]}"
