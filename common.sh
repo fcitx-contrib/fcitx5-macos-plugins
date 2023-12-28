@@ -37,6 +37,6 @@ f5m_install() {
 }
 
 f5m_make_tarball() {
-  cd $ADDON_INSTALL_PREFIX/..
-  tar cjvf $name-$ARCH.tar.bz2 -C $name .
+  cd $ADDON_INSTALL_PREFIX/
+  tar cjvf ../$name-$ARCH.tar.bz2 *
 }
