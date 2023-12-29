@@ -53,7 +53,7 @@ jobs:
             opencc \
             libevent
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
-          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local --strip-components=1 # need marisa-build
+          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local # need marisa-build
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
 
       - name: Download and install Fcitx5.app
