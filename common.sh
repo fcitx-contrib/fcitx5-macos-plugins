@@ -1,6 +1,8 @@
 name=$1
-export DESTDIR=`pwd`/build/$name
-cd fcitx5-$name
+
+ROOT=`pwd`
+ADDON_ROOT=$ROOT/fcitx5-$name
+DESTDIR=$ROOT/build/$name
 
 if [[ -z $2 ]]; then
   ARCH=`uname -m`
@@ -14,7 +16,7 @@ else
   HOMEBREW_PREFIX=/opt/homebrew
 fi
 
-cbr() {
+f5m_configure() {
   # Install plugins to /usr/local for both arm and x86 to ease fcitx5 search
   PKG_CONFIG_PATH=$HOMEBREW_PREFIX/lib/pkgconfig cmake -B build -G Ninja \
     -DCMAKE_BUILD_TYPE=Release \
@@ -22,15 +24,19 @@ cbr() {
     -DCMAKE_OSX_ARCHITECTURES=$ARCH "$@"
 }
 
-cb() {
+f5m_build() {
   cmake --build build
 }
 
-ci() {
-  cmake --install build
+f5m_install() {
+  cmake --install build # install for other plugins
+  DESTDIR=$DESTDIR cmake --install build # install for package
 }
 
-tbz() {
-  cd $DESTDIR/..
-  tar cjvf $name-$ARCH.tar.bz2 -C $name/usr/local lib share
+f5m_make_tarball() {
+  cd $DESTDIR/usr/local
+  tar cjvf ../../../$name-$ARCH.tar.bz2 *
 }
+
+set -x
+cd $ADDON_ROOT
