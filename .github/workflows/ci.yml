@@ -52,18 +52,13 @@ jobs:
             boost \
             opencc \
             libevent
-          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/local-x86_64.tar.bz2
-          tar xjvf local-x86_64.tar.bz2 -C /usr/local --strip-components=1 # need marisa-build
+          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
+          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local # need marisa-build
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
 
-      - name: Download prebuilt and Fcitx5.app
+      - name: Download and install Fcitx5.app
         run: |
-          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/local-${{ matrix.arch }}.tar.bz2
           wget https://github.com/fcitx-contrib/fcitx5-macos/releases/download/latest/Fcitx5-${{ matrix.arch }}.dmg
-
-      - name: Extract prebuilt and Fcitx5.app
-        run: |
-          tar xjvf local-${{ matrix.arch }}.tar.bz2 -C ${{ matrix.homebrew_prefix }} --strip-components=1
           hdiutil attach Fcitx5-${{ matrix.arch }}.dmg
           sudo cp -r /Volumes/Fcitx5/{Fcitx5.app,"Input Methods"}
 
@@ -82,10 +77,15 @@ jobs:
     if: ${{ github.ref == 'refs/heads/master' }}
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Download artifact
         uses: actions/download-artifact@v4
         with:
           merge-multiple: true
+
+      - name: Repackage arm
+        run: ./fix-cross-build.sh
 
       - name: Release
         uses: 'marvinpinto/action-automatic-releases@latest'
