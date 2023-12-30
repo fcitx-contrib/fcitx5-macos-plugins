@@ -7,3 +7,6 @@
 [submodule "fcitx5-lua"]
 	path = fcitx5-lua
 	url = https://github.com/fcitx/fcitx5-lua.git
+[submodule "fcitx5-thai"]
+	path = fcitx5-thai
+	url = https://github.com/fcitx/fcitx5-libthai
