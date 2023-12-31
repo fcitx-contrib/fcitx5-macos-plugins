@@ -14,6 +14,7 @@ Build plugins for [fcitx5-macos](https://github.com/fcitx-contrib/fcitx5-macos).
 ### Other
 * [lua](https://github.com/fcitx/fcitx5-lua): LGPL-2.1-or-later
 (NOT WORKING)
+* [rime](https://github.com/fcitx/fcitx5-rime/): LGPL-2.1-or-later
 
 ## Manual installation
 ```sh

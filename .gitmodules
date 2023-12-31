@@ -10,3 +10,6 @@
 [submodule "fcitx5-thai"]
 	path = fcitx5-thai
 	url = https://github.com/fcitx/fcitx5-libthai
+[submodule "fcitx5-rime"]
+	path = fcitx5-rime
+	url = git@github.com:fcitx/fcitx5-rime.git

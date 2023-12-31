@@ -7,6 +7,7 @@ all_plugins=(
   hallelujah
   chinese-addons # Optional dependency: lua
   thai
+  rime
 )
 
 for plugin in "${all_plugins[@]}"; do
