@@ -3,7 +3,7 @@
 	url = https://github.com/fcitx-contrib/fcitx5-hallelujah
 [submodule "fcitx5-chinese-addons"]
 	path = fcitx5-chinese-addons
-	url = git@github.com:fcitx/fcitx5-chinese-addons.git
+	url = https://github.com/fcitx/fcitx5-chinese-addons.git
 [submodule "fcitx5-lua"]
 	path = fcitx5-lua
 	url = https://github.com/fcitx/fcitx5-lua.git
@@ -12,7 +12,7 @@
 	url = https://github.com/fcitx/fcitx5-libthai
 [submodule "fcitx5-rime"]
 	path = fcitx5-rime
-	url = git@github.com:fcitx/fcitx5-rime.git
+	url = https://github.com/fcitx/fcitx5-rime.git
 [submodule "fcitx5-rime-data/rime-essay"]
 	path = fcitx5-rime-data/rime-essay
 	url = https://github.com/rime/rime-essay.git
