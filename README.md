@@ -11,10 +11,14 @@ Build plugins for [fcitx5-macos](https://github.com/fcitx-contrib/fcitx5-macos).
 ### Thai
 * [thai](https://github.com/fcitx/fcitx5-libthai): GPL-2.0-or-later
 
+### Generic
+* [rime](https://github.com/fcitx/fcitx5-rime): LGPL-2.1-or-later
+  * [librime](https://github.com/rime/librime): BSD-3-Clause
+  * [librime-lua](https://github.com/hchunhui/librime-lua): BSD-3-Clause
+  * [librime-octagram](https://github.com/lotem/librime-octagram): GPL-3.0-only
+
 ### Other
 * [lua](https://github.com/fcitx/fcitx5-lua): LGPL-2.1-or-later
-(NOT WORKING)
-* [rime](https://github.com/fcitx/fcitx5-rime/): LGPL-2.1-or-later
 
 ## Manual installation
 ```sh

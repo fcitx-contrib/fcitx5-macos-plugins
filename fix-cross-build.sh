@@ -5,7 +5,6 @@ fi
 
 broken_packages=(
   chinese-addons
-  rime
 )
 
 ROOT=`pwd`
