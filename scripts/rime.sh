@@ -21,5 +21,5 @@ ARGS=(
 
 f5m_configure ${ARGS[@]}
 f5m_build
-f5m_install
+f5m_install librime
 f5m_make_tarball
