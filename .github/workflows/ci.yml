@@ -23,6 +23,7 @@ jobs:
           submodules: recursive
 
       - name: Install dependencies (x86)
+        if: ${{ matrix.arch == 'x86_64' }}
         run: |
           brew install \
             fmt \
