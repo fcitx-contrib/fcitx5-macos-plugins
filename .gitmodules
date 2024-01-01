@@ -13,3 +13,15 @@
 [submodule "fcitx5-rime"]
 	path = fcitx5-rime
 	url = git@github.com:fcitx/fcitx5-rime.git
+[submodule "fcitx5-rime-data/rime-essay"]
+	path = fcitx5-rime-data/rime-essay
+	url = https://github.com/rime/rime-essay.git
+[submodule "fcitx5-rime-data/rime-prelude"]
+	path = fcitx5-rime-data/rime-prelude
+	url = https://github.com/rime/rime-prelude.git
+[submodule "fcitx5-rime-data/rime-luna-pinyin"]
+	path = fcitx5-rime-data/rime-luna-pinyin
+	url = https://github.com/rime/rime-luna-pinyin.git
+[submodule "fcitx5-rime-data/rime-stroke"]
+	path = fcitx5-rime-data/rime-stroke
+	url = https://github.com/rime/rime-stroke.git
