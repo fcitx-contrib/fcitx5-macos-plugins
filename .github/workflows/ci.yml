@@ -31,7 +31,8 @@ jobs:
             lua \
             boost \
             opencc \
-            ninja
+            ninja \
+            glog gflags yaml-cpp leveldb
 
       - name: Setup arm homebrew
         if: ${{ matrix.arch == 'arm64' }}
@@ -51,7 +52,8 @@ jobs:
             lua \
             boost \
             opencc \
-            libevent
+            libevent \
+            glog gflags yaml-cpp leveldb
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
           tar xjvf marisa-x86_64.tar.bz2 -C /usr/local # need marisa-build
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
