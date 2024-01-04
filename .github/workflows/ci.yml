@@ -57,7 +57,7 @@ jobs:
           hdiutil attach Fcitx5-${{ matrix.arch }}.dmg
           sudo cp -r /Volumes/Fcitx5/{Fcitx5.app,"Input Methods"}
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
-          tar xjvf marisa-x86_64.tar.bz2 -C /usr bin/marisa-build
+          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local bin/marisa-build
 
       - name: Build all
         run: ./all.sh ${{ matrix.arch }}
