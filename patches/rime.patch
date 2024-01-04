@@ -1,0 +1,26 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 6fdc402..51b1e75 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -16,7 +16,7 @@ find_package(PkgConfig REQUIRED)
+ 
+ if (NOT DEFINED RIME_TARGET)
+     pkg_check_modules(Rime REQUIRED IMPORTED_TARGET "rime>=1.0.0")
+-    set(RIME_TARGET PkgConfig::Rime)
++    set(RIME_TARGET PkgConfig::Rime "-L/tmp/fcitx5/lib" leveldb yaml-cpp marisa opencc glog)
+ endif()
+ 
+ if ("${Rime_VERSION}" VERSION_LESS "1.7.0")
+diff --git a/src/rimeengine.cpp b/src/rimeengine.cpp
+index e9e9d8d..0965f92 100644
+--- a/src/rimeengine.cpp
++++ b/src/rimeengine.cpp
+@@ -291,7 +291,7 @@ RimeEngine::RimeEngine(Instance *instance)
+     : instance_(instance), api_(EnsureRimeApi()),
+       factory_([this](InputContext &ic) { return new RimeState(this, ic); }),
+       sessionPool_(this, getSharedStatePolicy()) {
+-    if constexpr (isAndroid()) {
++    if constexpr (true) {
+         const auto &sp = fcitx::StandardPath::global();
+         std::string defaultYaml = sp.locate(fcitx::StandardPath::Type::Data,
+                                             "rime-data/default.yaml");

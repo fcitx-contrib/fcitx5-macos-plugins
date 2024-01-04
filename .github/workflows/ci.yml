@@ -31,8 +31,6 @@ jobs:
             json-c \
             lua \
             boost \
-            opencc \
-            glog gflags yaml-cpp leveldb \
             ninja
 
       - name: Setup arm homebrew
@@ -50,9 +48,7 @@ jobs:
             json-c \
             gettext \
             lua \
-            boost \
-            opencc \
-            glog gflags yaml-cpp leveldb
+            boost
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
           tar xjvf marisa-x86_64.tar.bz2 -C /usr/local # need marisa-build
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
