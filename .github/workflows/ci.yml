@@ -48,7 +48,6 @@ jobs:
             json-c \
             gettext \
             lua \
-            zstd \
             boost
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
 

@@ -3,7 +3,7 @@ set -e
 
 git reset --hard
 git apply ../patches/chinese-addons.patch
-install_deps libime marisa opencc
+install_deps libime marisa opencc zstd
 
 export LDFLAGS="-L$INSTALL_PREFIX/lib -lmarisa"
 
