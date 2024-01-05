@@ -23,6 +23,7 @@ jobs:
           submodules: recursive
 
       - name: Install dependencies (x86)
+        if: ${{ matrix.arch == 'x86_64' }}
         run: |
           brew install \
             fmt \
@@ -30,7 +31,6 @@ jobs:
             json-c \
             lua \
             boost \
-            opencc \
             ninja
 
       - name: Setup arm homebrew
@@ -47,13 +47,9 @@ jobs:
             fmt \
             json-c \
             gettext \
-            openssl@3 \
             lua \
-            boost \
-            opencc \
-            libevent
-          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
-          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local # need marisa-build
+            zstd \
+            boost
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
 
       - name: Download and install Fcitx5.app
@@ -61,6 +57,8 @@ jobs:
           wget https://github.com/fcitx-contrib/fcitx5-macos/releases/download/latest/Fcitx5-${{ matrix.arch }}.dmg
           hdiutil attach Fcitx5-${{ matrix.arch }}.dmg
           sudo cp -r /Volumes/Fcitx5/{Fcitx5.app,"Input Methods"}
+          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
+          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local bin/marisa-build
 
       - name: Build all
         run: ./all.sh ${{ matrix.arch }}
