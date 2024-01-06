@@ -26,9 +26,7 @@ jobs:
         if: ${{ matrix.arch == 'x86_64' }}
         run: |
           brew install \
-            fmt \
             extra-cmake-modules \
-            json-c \
             lua \
             ninja
 
@@ -43,8 +41,6 @@ jobs:
             extra-cmake-modules \
             ninja
           arm-brew-install \
-            fmt \
-            json-c \
             gettext \
             lua
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
