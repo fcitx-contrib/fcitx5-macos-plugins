@@ -30,7 +30,6 @@ jobs:
             extra-cmake-modules \
             json-c \
             lua \
-            boost \
             ninja
 
       - name: Setup arm homebrew
@@ -47,8 +46,7 @@ jobs:
             fmt \
             json-c \
             gettext \
-            lua \
-            boost
+            lua
           cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
 
       - name: Download and install Fcitx5.app
