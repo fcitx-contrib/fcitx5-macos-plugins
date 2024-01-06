@@ -6,7 +6,7 @@ rime_data_dir=$INSTALL_PREFIX/share/rime-data
 
 git reset --hard
 git apply ../patches/rime.patch
-install_deps yaml-cpp leveldb marisa opencc glog librime
+install_deps yaml-cpp leveldb marisa opencc glog librime lua
 
 # This value is only used to install fcitx5.yaml
 # and not used in rimeengine.cpp after patching
