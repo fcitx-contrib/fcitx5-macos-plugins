@@ -13,45 +13,25 @@ jobs:
       fail-fast: false
       matrix:
         arch: [x86_64, arm64]
-        include:
-          - { arch: x86_64, homebrew_prefix: /usr/local }
-          - { arch: arm64, homebrew_prefix: /opt/homebrew }
 
     steps:
       - uses: actions/checkout@v4
         with:
           submodules: recursive
 
-      - name: Install dependencies (x86)
-        if: ${{ matrix.arch == 'x86_64' }}
-        run: |
-          brew install \
-            extra-cmake-modules \
-            lua \
-            ninja
-
-      - name: Setup arm homebrew
-        if: ${{ matrix.arch == 'arm64' }}
-        uses: fcitx-contrib/macos-cross@master
-
-      - name: Install dependencies (arm)
-        if: ${{ matrix.arch == 'arm64' }}
+      - name: Install dependencies
         run: |
           brew install \
             extra-cmake-modules \
             ninja
-          arm-brew-install \
-            gettext \
-            lua
-          cp -f /usr/local/bin/msgfmt /opt/homebrew/bin
+          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
+          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local bin/marisa-build
 
       - name: Download and install Fcitx5.app
         run: |
           wget https://github.com/fcitx-contrib/fcitx5-macos/releases/download/latest/Fcitx5-${{ matrix.arch }}.dmg
           hdiutil attach Fcitx5-${{ matrix.arch }}.dmg
           sudo cp -r /Volumes/Fcitx5/{Fcitx5.app,"Input Methods"}
-          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
-          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local bin/marisa-build
 
       - name: Build all
         run: ./all.sh ${{ matrix.arch }}
@@ -62,6 +42,10 @@ jobs:
           name: artifact-${{ matrix.arch }}
           path: |
             build/*.tar.bz2
+
+      - name: Check validity
+        if: ${{ matrix.arch == 'x86_64' }}
+        run: ./check-validity.sh
 
   release:
     needs: build
