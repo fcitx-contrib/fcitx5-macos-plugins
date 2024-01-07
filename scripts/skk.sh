@@ -20,7 +20,7 @@ mv SKK-JISYO.L $dict_dir/SKK-JISYO.L
 cd -
 
 # Build fcitx5-skk
-install_deps glib libgee libskk json-glib
+install_deps libxkbcommon pcre2 glib libgee libskk json-glib
 f5m_configure -DENABLE_QT=OFF
 f5m_build
 f5m_install
