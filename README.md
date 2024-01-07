@@ -5,6 +5,9 @@ Build plugins for [fcitx5-macos](https://github.com/fcitx-contrib/fcitx5-macos).
 ### Chinese
 * [chinese-addons](https://github.com/fcitx/fcitx5-chinese-addons): LGPL-2.1-or-later
 
+### Japanese
+* [skk](https://github.com/fcitx/fcitx5-skk): GPL-3.0-or-later
+
 ### English
 * [hallelujah](https://github.com/fcitx-contrib/fcitx5-hallelujah): GPL-3.0-only
 
