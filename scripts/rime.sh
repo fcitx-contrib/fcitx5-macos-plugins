@@ -27,5 +27,6 @@ cp rime-luna-pinyin/*.yaml $rime_dir
 cp rime-stroke/*.yaml $rime_dir
 cp default.yaml $rime_dir
 cd -
+cp -r $INSTALL_PREFIX/share/opencc $DESTDIR$rime_data_dir
 
 f5m_make_tarball

@@ -1,13 +1,14 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 6fdc402..51b1e75 100644
+index 6fdc402..3d05b15 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -16,7 +16,7 @@ find_package(PkgConfig REQUIRED)
+@@ -16,7 +16,8 @@ find_package(PkgConfig REQUIRED)
  
  if (NOT DEFINED RIME_TARGET)
      pkg_check_modules(Rime REQUIRED IMPORTED_TARGET "rime>=1.0.0")
 -    set(RIME_TARGET PkgConfig::Rime)
-+    set(RIME_TARGET PkgConfig::Rime "-L/tmp/fcitx5/lib" leveldb yaml-cpp marisa opencc glog)
++    add_definitions(-I "/tmp/fcitx5/include")
++    set(RIME_TARGET $<LINK_LIBRARY:WHOLE_ARCHIVE,"/tmp/fcitx5/lib/librime.a"> "-L/tmp/fcitx5/lib" leveldb yaml-cpp marisa opencc glog lua)
  endif()
  
  if ("${Rime_VERSION}" VERSION_LESS "1.7.0")
