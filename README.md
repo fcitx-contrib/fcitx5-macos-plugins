@@ -22,5 +22,6 @@ Build plugins for [fcitx5-macos](https://github.com/fcitx-contrib/fcitx5-macos).
 
 ## Manual installation
 ```sh
+mkdir -p ~/Library/fcitx5
 tar -xjvC ~/Library/fcitx5 -f hallelujah-x86_64.tar.bz2
 ```
