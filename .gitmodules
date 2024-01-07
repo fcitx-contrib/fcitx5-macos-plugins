@@ -25,3 +25,6 @@
 [submodule "fcitx5-rime-data/rime-stroke"]
 	path = fcitx5-rime-data/rime-stroke
 	url = https://github.com/rime/rime-stroke
+[submodule "fcitx5-skk"]
+	path = fcitx5-skk
+	url = https://github.com/fcitx/fcitx5-skk
