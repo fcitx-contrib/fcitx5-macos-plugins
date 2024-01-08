@@ -3,6 +3,7 @@
 set -e
 
 all_plugins=(
+  skk
   lua
   hallelujah
   chinese-addons # Optional dependency: lua

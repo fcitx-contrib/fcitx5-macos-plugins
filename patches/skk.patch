@@ -1,0 +1,57 @@
+diff --git a/src/skk.cpp b/src/skk.cpp
+index 2606461..1b37bcd 100644
+--- a/src/skk.cpp
++++ b/src/skk.cpp
+@@ -294,6 +294,8 @@ SkkEngine::SkkEngine(Instance *instance)
+           newState->applyConfig();
+           return newState;
+       }) {
++    std::string datadir = std::string(getenv("HOME")) + "/Library/fcitx5/share/libskk";
++    setenv("LIBSKK_DATA_PATH", datadir.c_str(), 1);
+     skk_init();
+ 
+     modeAction_ = std::make_unique<SkkModeAction>(this);
+@@ -501,30 +502,36 @@ void SkkEngine::loadDictionary() {
+                 continue;
+             }
+             if (mode == 1) {
+-                if (stringutils::endsWith(path, ".cdb")) {
++                constexpr char xdgDataDir[] = "$XDG_DATA_DIR/";
++                std::string realpath = path;
++                if (stringutils::startsWith(path, xdgDataDir)) {
++                    realpath = StandardPath::global().locate(
++                        StandardPath::Type::Data,
++                        path.substr(sizeof(xdgDataDir) - 1));
++                }
++                if (stringutils::endsWith(realpath, ".cdb")) {
+                     SkkCdbDict *dict =
+-                        skk_cdb_dict_new(path.data(), encoding.data(), nullptr);
++                        skk_cdb_dict_new(realpath.data(), encoding.data(), nullptr);
+                     if (dict) {
+-                        SKK_DEBUG() << "Adding cdb dict: " << path;
++                        SKK_DEBUG() << "Adding cdb dict: " << realpath;
+                         dictionaries_.emplace_back(SKK_DICT(dict));
+                     }
+                 } else {
+                     SkkFileDict *dict = skk_file_dict_new(
+-                        path.data(), encoding.data(), nullptr);
++                        realpath.data(), encoding.data(), nullptr);
+                     if (dict) {
+-                        SKK_DEBUG() << "Adding file dict: " << path;
++                        SKK_DEBUG() << "Adding file dict: " << realpath;
+                         dictionaries_.emplace_back(SKK_DICT(dict));
+                     }
+                 }
+             } else {
+                 constexpr char configDir[] = "$FCITX_CONFIG_DIR/";
+-                constexpr auto len = sizeof(configDir) - 1;
+                 std::string realpath = path;
+                 if (stringutils::startsWith(path, configDir)) {
+                     realpath = stringutils::joinPath(
+                         StandardPath::global().userDirectory(
+                             StandardPath::Type::PkgData),
+-                        path.substr(len));
++                        path.substr(sizeof(configDir) - 1));
+                 }
+                 SkkUserDict *userdict = skk_user_dict_new(
+                     realpath.data(), encoding.data(), nullptr);
