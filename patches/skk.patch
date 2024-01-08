@@ -1,17 +1,17 @@
-From 6c814d5e914f69289c2601022aebc9f92ecad971 Mon Sep 17 00:00:00 2001
-From: ksqsf <i@ksqsf.moe>
-Date: Sun, 7 Jan 2024 14:30:17 +0800
-Subject: [PATCH] Support $XDG_DATA_DIR
-
----
- src/skk.cpp | 20 +++++++++++++-------
- 1 file changed, 13 insertions(+), 7 deletions(-)
-
 diff --git a/src/skk.cpp b/src/skk.cpp
-index 2606461..a78508a 100644
+index 2606461..1b37bcd 100644
 --- a/src/skk.cpp
 +++ b/src/skk.cpp
-@@ -501,30 +501,36 @@ void SkkEngine::loadDictionary() {
+@@ -294,6 +294,8 @@ SkkEngine::SkkEngine(Instance *instance)
+           newState->applyConfig();
+           return newState;
+       }) {
++    std::string datadir = std::string(getenv("HOME")) + "/Library/fcitx5/share/libskk";
++    setenv("LIBSKK_DATA_PATH", datadir.c_str(), 1);
+     skk_init();
+ 
+     modeAction_ = std::make_unique<SkkModeAction>(this);
+@@ -501,30 +502,36 @@ void SkkEngine::loadDictionary() {
                  continue;
              }
              if (mode == 1) {
@@ -55,6 +55,3 @@ index 2606461..a78508a 100644
                  }
                  SkkUserDict *userdict = skk_user_dict_new(
                      realpath.data(), encoding.data(), nullptr);
--- 
-2.39.3 (Apple Git-145)
-
