@@ -43,7 +43,7 @@ f5m_install() {
   DESTDIR=$DESTDIR cmake --install build
   for dep in "$@"; do
     file=$dep-$ARCH.tar.bz2
-    tar xjvf ../$file -C $DESTDIR$INSTALL_PREFIX share
+    tar xjvf $CACHE_DIR/$file -C $DESTDIR$INSTALL_PREFIX share
   done
 }
 
