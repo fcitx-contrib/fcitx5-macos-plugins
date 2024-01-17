@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 6fdc402..3d05b15 100644
+index 6233bea..9958710 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -16,7 +16,8 @@ find_package(PkgConfig REQUIRED)
@@ -12,16 +12,3 @@ index 6fdc402..3d05b15 100644
  endif()
  
  if ("${Rime_VERSION}" VERSION_LESS "1.7.0")
-diff --git a/src/rimeengine.cpp b/src/rimeengine.cpp
-index e9e9d8d..0965f92 100644
---- a/src/rimeengine.cpp
-+++ b/src/rimeengine.cpp
-@@ -291,7 +291,7 @@ RimeEngine::RimeEngine(Instance *instance)
-     : instance_(instance), api_(EnsureRimeApi()),
-       factory_([this](InputContext &ic) { return new RimeState(this, ic); }),
-       sessionPool_(this, getSharedStatePolicy()) {
--    if constexpr (isAndroid()) {
-+    if constexpr (true) {
-         const auto &sp = fcitx::StandardPath::global();
-         std::string defaultYaml = sp.locate(fcitx::StandardPath::Type::Data,
-                                             "rime-data/default.yaml");

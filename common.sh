@@ -26,8 +26,8 @@ fi
 install_deps() {
   for dep in "$@"; do
     file=$dep-$ARCH.tar.bz2
-    [[ -f ../$file ]] || wget -P .. https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/$file
-    tar xjvf ../$file -C $INSTALL_PREFIX
+    [[ -f ../cache/$file ]] || wget -P ../cache https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/$file
+    tar xjvf ../cache/$file -C $INSTALL_PREFIX
   done
 }
 
