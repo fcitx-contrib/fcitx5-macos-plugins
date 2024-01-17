@@ -3,6 +3,7 @@ name=$1
 ROOT=`pwd`
 ADDON_ROOT=$ROOT/fcitx5-$name
 DESTDIR=$ROOT/build/$name
+CACHE_DIR=$ROOT/cache
 
 # This is the same with INSTALL_PREFIX of prebuilder
 INSTALL_PREFIX=/tmp/fcitx5
@@ -14,29 +15,22 @@ else
   ARCH=$2
 fi
 
-# TODO: prebuild all homebrew dependencies
-if [[ $ARCH == x86_64 ]]; then
-  HOMEBREW_PREFIX=/usr/local
-else
-  HOMEBREW_PREFIX=/opt/homebrew
-fi
-
 : "${CMAKE_BUILD_TYPE:=Release}"
 
 install_deps() {
   for dep in "$@"; do
     file=$dep-$ARCH.tar.bz2
-    [[ -f ../$file ]] || wget -P .. https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/$file
-    tar xjvf ../$file -C $INSTALL_PREFIX
+    [[ -f $CACHE_DIR/$file ]] || wget -P $CACHE_DIR https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/$file
+    tar xjvf $CACHE_DIR/$file -C $INSTALL_PREFIX
   done
 }
 
 f5m_configure() {
   rm -rf build
-  PKG_CONFIG_PATH=$INSTALL_PREFIX/lib/pkgconfig:$HOMEBREW_PREFIX/lib/pkgconfig cmake -B build -G Ninja \
+  PKG_CONFIG_PATH=$INSTALL_PREFIX/lib/pkgconfig cmake -B build -G Ninja \
     -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX \
     -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE \
-    -DCMAKE_FIND_ROOT_PATH="/Library/Input Methods/Fcitx5.app/Contents;$INSTALL_PREFIX;$HOMEBREW_PREFIX" \
+    -DCMAKE_FIND_ROOT_PATH="/Library/Input Methods/Fcitx5.app/Contents;$INSTALL_PREFIX" \
     -DCMAKE_OSX_ARCHITECTURES=$ARCH "$@"
 }
 
@@ -49,7 +43,7 @@ f5m_install() {
   DESTDIR=$DESTDIR cmake --install build
   for dep in "$@"; do
     file=$dep-$ARCH.tar.bz2
-    tar xjvf ../$file -C $DESTDIR$INSTALL_PREFIX share
+    tar xjvf $CACHE_DIR/$file -C $DESTDIR$INSTALL_PREFIX share
   done
 }
 
