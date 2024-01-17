@@ -3,6 +3,7 @@ name=$1
 ROOT=`pwd`
 ADDON_ROOT=$ROOT/fcitx5-$name
 DESTDIR=$ROOT/build/$name
+CACHE_DIR=$ROOT/cache
 
 # This is the same with INSTALL_PREFIX of prebuilder
 INSTALL_PREFIX=/tmp/fcitx5
@@ -26,8 +27,8 @@ fi
 install_deps() {
   for dep in "$@"; do
     file=$dep-$ARCH.tar.bz2
-    [[ -f ../cache/$file ]] || wget -P ../cache https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/$file
-    tar xjvf ../cache/$file -C $INSTALL_PREFIX
+    [[ -f $CACHE_DIR/$file ]] || wget -P $CACHE_DIR https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/$file
+    tar xjvf $CACHE_DIR/$file -C $INSTALL_PREFIX
   done
 }
 
