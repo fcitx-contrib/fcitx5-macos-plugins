@@ -15,13 +15,6 @@ else
   ARCH=$2
 fi
 
-# TODO: prebuild all homebrew dependencies
-if [[ $ARCH == x86_64 ]]; then
-  HOMEBREW_PREFIX=/usr/local
-else
-  HOMEBREW_PREFIX=/opt/homebrew
-fi
-
 : "${CMAKE_BUILD_TYPE:=Release}"
 
 install_deps() {
@@ -34,10 +27,10 @@ install_deps() {
 
 f5m_configure() {
   rm -rf build
-  PKG_CONFIG_PATH=$INSTALL_PREFIX/lib/pkgconfig:$HOMEBREW_PREFIX/lib/pkgconfig cmake -B build -G Ninja \
+  PKG_CONFIG_PATH=$INSTALL_PREFIX/lib/pkgconfig cmake -B build -G Ninja \
     -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX \
     -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE \
-    -DCMAKE_FIND_ROOT_PATH="/Library/Input Methods/Fcitx5.app/Contents;$INSTALL_PREFIX;$HOMEBREW_PREFIX" \
+    -DCMAKE_FIND_ROOT_PATH="/Library/Input Methods/Fcitx5.app/Contents;$INSTALL_PREFIX" \
     -DCMAKE_OSX_ARCHITECTURES=$ARCH "$@"
 }
 
