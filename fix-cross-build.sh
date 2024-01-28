@@ -15,7 +15,9 @@ for package in "${broken_packages[@]}"; do
   cross_pkg=$package-arm64.tar.bz2
   mkdir $tmp_dir
   tar xjvf $native_pkg -C $tmp_dir
+  mv $tmp_dir/plugin/$package.json{,.bak}
   tar xjvf $cross_pkg -C $tmp_dir
+  mv $tmp_dir/plugin/$package.json{.bak,}
   cd $tmp_dir
   tar cjvf $ROOT/$cross_pkg *
   cd $ROOT

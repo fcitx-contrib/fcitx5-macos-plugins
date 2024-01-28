@@ -49,6 +49,7 @@ f5m_install() {
 
 f5m_make_tarball() {
   cd $DESTDIR$INSTALL_PREFIX
+  python $ROOT/generate-descriptor.py
   tar cjvf ../../../$name-$ARCH.tar.bz2 *
 }
 
