@@ -9,11 +9,14 @@ on:
 
 jobs:
   build:
-    runs-on: macos-13
+    runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
       matrix:
-        arch: [x86_64, arm64]
+        os: [macos-14, macos-13]
+        include:
+          - { os: macos-14, arch: arm64 }
+          - { os: macos-13, arch: x86_64 }
 
     steps:
       - uses: actions/checkout@v4
@@ -25,8 +28,8 @@ jobs:
           brew install \
             extra-cmake-modules \
             ninja
-          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-x86_64.tar.bz2
-          tar xjvf marisa-x86_64.tar.bz2 -C /usr/local bin/marisa-build
+          wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-${{ matrix.arch }}.tar.bz2
+          sudo tar xjvf marisa-${{ matrix.arch }}.tar.bz2 -C /usr bin/marisa-build
 
       - name: Download and install Fcitx5.app
         run: |
@@ -45,7 +48,6 @@ jobs:
             build/*.tar.bz2
 
       - name: Check validity
-        if: ${{ matrix.arch == 'x86_64' }}
         run: ./check-validity.sh
 
       - name: Setup tmate session
@@ -63,9 +65,6 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           merge-multiple: true
-
-      - name: Repackage arm
-        run: ./fix-cross-build.sh
 
       - name: Release
         uses: 'marvinpinto/action-automatic-releases@latest'
