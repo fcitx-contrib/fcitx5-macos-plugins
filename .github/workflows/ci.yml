@@ -29,7 +29,7 @@ jobs:
             extra-cmake-modules \
             ninja
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-${{ matrix.arch }}.tar.bz2
-          sudo tar xjvf marisa-${{ matrix.arch }}.tar.bz2 -C /usr bin/marisa-build
+          sudo tar xjvf marisa-${{ matrix.arch }}.tar.bz2 -C /usr/local bin/marisa-build
 
       - name: Download and install Fcitx5.app
         run: |
