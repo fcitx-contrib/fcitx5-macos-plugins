@@ -29,4 +29,4 @@ cp default.yaml $rime_dir
 cd -
 cp -r $INSTALL_PREFIX/share/opencc $DESTDIR$rime_data_dir
 
-f5m_make_tarball
+f5m_make_tarball rime

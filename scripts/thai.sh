@@ -6,4 +6,4 @@ install_deps libthai
 f5m_configure
 f5m_build
 f5m_install
-f5m_make_tarball
+f5m_make_tarball libthai
