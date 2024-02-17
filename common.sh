@@ -48,9 +48,10 @@ f5m_install() {
   done
 }
 
+# params: IMs to auto add on plugin install
 f5m_make_tarball() {
   cd $DESTDIR$INSTALL_PREFIX
-  python $ROOT/generate-descriptor.py
+  python $ROOT/generate-descriptor.py "$@"
   tar cjvf ../../../$name-$ARCH.tar.bz2 *
 }
 

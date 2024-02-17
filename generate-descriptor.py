@@ -1,5 +1,8 @@
 import json
 import os
+import sys
+
+input_methods = sys.argv[1:]
 
 cwd = os.getcwd()
 plugin = cwd.split("/")[-3] # /path/to/rime/tmp/fcitx5
@@ -11,6 +14,9 @@ for dirpath, _, filenames in os.walk(os.getcwd()):
 
 os.makedirs("plugin", exist_ok=True)
 with open(f"plugin/{plugin}.json", "w") as f:
-    json.dump({
+    descriptor = {
         "files": files
-    }, f)
+    }
+    if input_methods:
+        descriptor["input_methods"] = input_methods
+    json.dump(descriptor, f)

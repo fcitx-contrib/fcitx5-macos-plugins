@@ -22,4 +22,4 @@ f5m_build
 f5m_install libime opencc
 # Install zh_CN.lm and zh_CN.lm.predict which are not in share
 tar xjvf $CACHE_DIR/libime-$ARCH.tar.bz2 -C $DESTDIR$INSTALL_PREFIX lib/libime
-f5m_make_tarball
+f5m_make_tarball pinyin
