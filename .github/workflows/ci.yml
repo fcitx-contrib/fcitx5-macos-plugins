@@ -37,9 +37,8 @@ jobs:
 
       - name: Download and install Fcitx5.app
         run: |
-          wget https://github.com/fcitx-contrib/fcitx5-macos/releases/download/latest/Fcitx5-${{ matrix.arch }}.dmg
-          hdiutil attach Fcitx5-${{ matrix.arch }}.dmg
-          sudo cp -r /Volumes/Fcitx5/{Fcitx5.app,"Input Methods"}
+          wget https://github.com/fcitx-contrib/fcitx5-macos/releases/download/latest/Fcitx5-${{ matrix.arch }}.tar.bz2
+          sudo tar xjvf Fcitx5-${{ matrix.arch }}.tar.bz2 -C "/Library/Input Methods"
 
       - name: Build all
         run: ./all.sh ${{ matrix.arch }}
