@@ -24,3 +24,16 @@ index 3522664..a5e0a5d 100644
      Option<bool> showActualPinyinInPreedit{
          this, "PinyinInPreedit", _("Show complete pinyin in preedit"), false};
      Option<bool> predictionEnabled{this, "Prediction", _("Enable Prediction"),
+diff --git a/im/table/ime.h b/im/table/ime.h
+index d06a0a2..9175d4f 100644
+--- a/im/table/ime.h
++++ b/im/table/ime.h
+@@ -118,7 +118,7 @@ FCITX_CONFIGURATION(
+     Option<bool> preeditCursorPositionAtBeginning{
+         this, "PreeditCursorPositionAtBeginning",
+         _("Fix embedded preedit cursor at the beginning of the preedit"),
+-        !isAndroid()};
++        false};
+     Option<Key, KeyConstrain> quickphrase{
+         this,
+         "QuickPhraseKey",
