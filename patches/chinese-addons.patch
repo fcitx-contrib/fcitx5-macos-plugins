@@ -12,10 +12,10 @@ index b4efaf4..eeb9bad 100644
  if (ENABLE_CLOUDPINYIN)
      pkg_check_modules(Curl REQUIRED IMPORTED_TARGET "libcurl")
 diff --git a/im/pinyin/pinyin.h b/im/pinyin/pinyin.h
-index 3522664..a5e0a5d 100644
+index 93bb8fa..304d858 100644
 --- a/im/pinyin/pinyin.h
 +++ b/im/pinyin/pinyin.h
-@@ -141,7 +141,7 @@ FCITX_CONFIGURATION(
+@@ -137,7 +137,7 @@ FCITX_CONFIGURATION(
      Option<bool> preeditCursorPositionAtBeginning{
          this, "PreeditCursorPositionAtBeginning",
          _("Fix embedded preedit cursor at the beginning of the preedit"),
