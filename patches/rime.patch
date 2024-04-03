@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 24f4f51..e3224f3 100644
+index f6f9909..df779da 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -16,7 +16,8 @@ find_package(PkgConfig REQUIRED)
@@ -12,16 +12,3 @@ index 24f4f51..e3224f3 100644
  endif()
  
  if ("${Rime_VERSION}" VERSION_LESS "1.7.0")
-diff --git a/src/rimeengine.h b/src/rimeengine.h
-index 5e016f7..520b83b 100644
---- a/src/rimeengine.h
-+++ b/src/rimeengine.h
-@@ -59,7 +59,7 @@ FCITX_CONFIGURATION(
-     Option<bool> preeditCursorPositionAtBeginning{
-         this, "PreeditCursorPositionAtBeginning",
-         _("Fix embedded preedit cursor at the beginning of the preedit"),
--        !isAndroid()};
-+        false};
-     Option<bool> commitWhenDeactivate{
-         this, "Commit when deactivate",
-         _("Commit current text when deactivating"), true};
