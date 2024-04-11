@@ -12,7 +12,7 @@ index 433a71d..7efcd6b 100644
  if (ENABLE_CLOUDPINYIN)
      pkg_check_modules(Curl REQUIRED IMPORTED_TARGET "libcurl")
 diff --git a/im/pinyin/pinyin.h b/im/pinyin/pinyin.h
-index b7971bf..219d476 100644
+index b7971bf..0e92bbd 100644
 --- a/im/pinyin/pinyin.h
 +++ b/im/pinyin/pinyin.h
 @@ -152,7 +152,7 @@ FCITX_CONFIGURATION(
@@ -24,6 +24,22 @@ index b7971bf..219d476 100644
      Option<bool> showActualPinyinInPreedit{
          this, "PinyinInPreedit", _("Show complete pinyin in preedit"), false};
      Option<bool> predictionEnabled{this, "Prediction", _("Enable Prediction"),
+@@ -173,13 +173,13 @@ FCITX_CONFIGURATION(
+         this,
+         "PrevPage",
+         _("Previous Page"),
+-        {Key(FcitxKey_minus), Key(FcitxKey_Up), Key(FcitxKey_KP_Up)},
++        {Key(FcitxKey_minus), Key(FcitxKey_Up), Key(FcitxKey_KP_Up), Key(FcitxKey_Page_Up)},
+         KeyListConstrain({KeyConstrainFlag::AllowModifierLess})};
+     KeyListOption nextPage{
+         this,
+         "NextPage",
+         _("Next Page"),
+-        {Key(FcitxKey_equal), Key(FcitxKey_Down), Key(FcitxKey_KP_Down)},
++        {Key(FcitxKey_equal), Key(FcitxKey_Down), Key(FcitxKey_KP_Down), Key(FcitxKey_Page_Down)},
+         KeyListConstrain({KeyConstrainFlag::AllowModifierLess})};
+     KeyListOption prevCandidate{
+         this,
 diff --git a/im/table/ime.h b/im/table/ime.h
 index d06a0a2..9175d4f 100644
 --- a/im/table/ime.h
