@@ -31,3 +31,6 @@
 [submodule "fcitx5-unikey"]
 	path = fcitx5-unikey
 	url = https://github.com/fcitx/fcitx5-unikey
+[submodule "fcitx5-anthy"]
+	path = fcitx5-anthy
+	url = https://github.com/fcitx/fcitx5-anthy

@@ -10,6 +10,7 @@ all_plugins=(
   thai
   rime
   unikey
+  anthy
 )
 
 for plugin in "${all_plugins[@]}"; do
