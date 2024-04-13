@@ -14,6 +14,9 @@ Build plugins for [fcitx5-macos](https://github.com/fcitx-contrib/fcitx5-macos).
 ### Thai
 * [thai](https://github.com/fcitx/fcitx5-libthai): GPL-2.0-or-later
 
+### Vietnamese
+* [unikey](https://github.com/fcitx/fcitx5-unikey): GPL-2.0-or-later
+
 ### Generic
 * [rime](https://github.com/fcitx/fcitx5-rime): LGPL-2.1-or-later
   * [librime](https://github.com/rime/librime): BSD-3-Clause

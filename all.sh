@@ -9,6 +9,7 @@ all_plugins=(
   chinese-addons # Optional dependency: lua
   thai
   rime
+  unikey
 )
 
 for plugin in "${all_plugins[@]}"; do
