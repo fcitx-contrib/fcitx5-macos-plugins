@@ -11,6 +11,7 @@ ARGS=(
   -DCMAKE_CXX_FLAGS="-I$INSTALL_PREFIX/include/Fcitx5/Module/fcitx-module/luaaddonloader"
   -DENABLE_TEST=OFF
   -DENABLE_GUI=OFF
+  "-DCMAKE_INSTALL_RPATH=$APP_CONTENTS_PATH/lib" # scel2org5
 )
 
 if [[ $ARCH != $(uname -m) ]]; then
