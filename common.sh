@@ -4,6 +4,7 @@ ROOT=`pwd`
 ADDON_ROOT=$ROOT/fcitx5-$name
 DESTDIR=$ROOT/build/$name
 CACHE_DIR=$ROOT/cache
+APP_CONTENTS_PATH="/Library/Input Methods/Fcitx5.app/Contents"
 
 # This is the same with INSTALL_PREFIX of prebuilder
 INSTALL_PREFIX=/tmp/fcitx5
@@ -30,7 +31,7 @@ f5m_configure() {
   PKG_CONFIG_PATH=$INSTALL_PREFIX/lib/pkgconfig cmake -B build -G Ninja \
     -DCMAKE_INSTALL_PREFIX=$INSTALL_PREFIX \
     -DCMAKE_BUILD_TYPE=$CMAKE_BUILD_TYPE \
-    -DCMAKE_FIND_ROOT_PATH="/Library/Input Methods/Fcitx5.app/Contents;$INSTALL_PREFIX" \
+    -DCMAKE_FIND_ROOT_PATH="$APP_CONTENTS_PATH;$INSTALL_PREFIX" \
     -DCMAKE_OSX_DEPLOYMENT_TARGET=13 \
     -DCMAKE_OSX_ARCHITECTURES=$ARCH "$@"
 }
@@ -44,7 +45,7 @@ f5m_install() {
   DESTDIR=$DESTDIR cmake --install build
   for dep in "$@"; do
     file=$dep-$ARCH.tar.bz2
-    tar xjvf $CACHE_DIR/$file -C $DESTDIR$INSTALL_PREFIX bin share
+    tar xjvf $CACHE_DIR/$file -C $DESTDIR$INSTALL_PREFIX --exclude include --exclude lib
   done
 }
 
