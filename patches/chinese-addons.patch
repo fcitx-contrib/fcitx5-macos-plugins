@@ -1,9 +1,9 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 4289b48..067facb 100644
+index 9345c75..ca55c94 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -65,6 +65,8 @@ endif()
- find_package(Boost 1.61 REQUIRED COMPONENTS iostreams)
+@@ -66,6 +66,8 @@ endif()
+ find_package(Boost 1.61 REQUIRED COMPONENTS iostreams OPTIONAL_COMPONENTS json)
  find_package(LibIMEPinyin 1.1.7 REQUIRED)
  find_package(LibIMETable 1.1.4 REQUIRED)
 +pkg_check_modules(ZSTD REQUIRED IMPORTED_TARGET "libzstd")
