@@ -7,6 +7,7 @@ Build plugins for [fcitx5-macos](https://github.com/fcitx-contrib/fcitx5-macos).
 
 ### Japanese
 * [skk](https://github.com/fcitx/fcitx5-skk): GPL-3.0-or-later
+* [anthy](https://github.com/fcitx/fcitx5-anthy): GPL-2.0-or-later
 
 ### English
 * [hallelujah](https://github.com/fcitx-contrib/fcitx5-hallelujah): GPL-3.0-only
