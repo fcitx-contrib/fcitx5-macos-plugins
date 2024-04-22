@@ -6,5 +6,5 @@ install_deps anthy-unicode
 
 f5m_configure -DENABLE_TEST=OFF
 f5m_build
-f5m_install
-f5m_make_tarball
+f5m_install anthy-unicode
+f5m_make_tarball anthy
