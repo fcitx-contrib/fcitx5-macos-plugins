@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index f6f9909..df779da 100644
+index 643b5ca..9b04182 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -16,7 +16,8 @@ find_package(PkgConfig REQUIRED)
