@@ -53,6 +53,17 @@ jobs:
       - name: Check validity
         run: ./check-validity.sh
 
+      - name: Generate meta-${{ matrix.arch }}.json
+        run: |
+          python generate-meta.py
+
+      - name: Upload meta-${{ matrix.arch }}.json
+        uses: actions/upload-artifact@v4
+        with:
+          name: meta-${{ matrix.arch }}.json
+          path: |
+            meta-${{ matrix.arch }}.json
+
       - name: Setup tmate session
         if: ${{ failure() }}
         uses: mxschmitt/action-tmate@v3
@@ -78,3 +89,5 @@ jobs:
           title: "Nightly Build"
           files: |
             *.tar.bz2
+            meta-arm64.json
+            meta-x86_64.json
