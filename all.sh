@@ -11,6 +11,7 @@ all_plugins=(
   rime
   unikey
   anthy
+  table-extra
 )
 
 for plugin in "${all_plugins[@]}"; do
