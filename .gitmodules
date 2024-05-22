@@ -34,3 +34,6 @@
 [submodule "fcitx5-anthy"]
 	path = fcitx5-anthy
 	url = https://github.com/fcitx/fcitx5-anthy
+[submodule "fcitx5-table-extra"]
+	path = fcitx5-table-extra
+	url = https://github.com/fcitx/fcitx5-table-extra
