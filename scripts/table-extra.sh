@@ -1,7 +1,7 @@
 set -e
 . ./common.sh table-extra $1
 
-install_deps libime
+install_deps boost libime
 
 f5m_configure
 f5m_build
