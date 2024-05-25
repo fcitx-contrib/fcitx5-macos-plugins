@@ -5,4 +5,5 @@ set -e
 f5m_configure -DENABLE_QT=OFF -DENABLE_TEST=OFF
 f5m_build
 f5m_install
+f5m_split_data
 f5m_make_tarball unikey

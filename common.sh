@@ -49,11 +49,25 @@ f5m_install() {
   done
 }
 
+f5m_split_data() {
+  cd $DESTDIR$INSTALL_PREFIX
+  rm -rf ../data
+  mkdir -p ../data
+  for dir in "include" "share"; do
+    if [[ -d $dir ]]; then
+      mv $dir ../data/$dir
+    fi
+  done
+}
+
 # params: IMs to auto add on plugin install
 f5m_make_tarball() {
   cd $DESTDIR$INSTALL_PREFIX
   python $ROOT/generate-descriptor.py "$@"
   tar cjvf ../../../$name-$ARCH.tar.bz2 *
+
+  cd ../data
+  tar cjvf ../../../$name-any.tar.bz2 *
 }
 
 set -x

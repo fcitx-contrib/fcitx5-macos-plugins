@@ -34,6 +34,7 @@ jobs:
             ninja
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-${{ matrix.arch }}.tar.bz2
           sudo tar xjvf marisa-${{ matrix.arch }}.tar.bz2 -C /usr/local bin/marisa-build
+          pip install dirhash
 
       - name: Download and install Fcitx5.app
         run: |

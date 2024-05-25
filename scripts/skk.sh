@@ -36,4 +36,5 @@ type=file,file=\$FCITX_CONFIG_DIR/skk/user.dict,mode=readwrite
 type=file,file=\$XDG_DATA_DIR/skk-dict/SKK-JISYO.L,mode=readonly
 EOF
 
+f5m_split_data
 f5m_make_tarball skk
