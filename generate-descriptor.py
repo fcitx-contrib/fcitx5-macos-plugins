@@ -25,8 +25,10 @@ except:
 
 data_version = dirhash(data_dir, "md5")
 
-os.makedirs("plugin", exist_ok=True)
-with open(f"plugin/{plugin}.json", "w") as f:
+plugin_dir = f"{data_dir}/plugin"
+
+os.makedirs(plugin_dir, exist_ok=True)
+with open(f"{plugin_dir}/{plugin}.json", "w") as f:
     descriptor = {
         "data_version": data_version,
         "files": files

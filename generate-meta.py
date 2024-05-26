@@ -10,15 +10,20 @@ def getArch():
 arch = getArch()
 plugins = []
 
-for script in os.listdir("scripts"):
-    plugin = script.split(".")[0]
-    descriptor = f"build/{plugin}/tmp/fcitx5/plugin/{plugin}.json"
+for plugin in os.listdir("build"):
+    if plugin.endswith(".tar.bz2"):
+        continue
+    descriptor = f"build/{plugin}/tmp/data/plugin/{plugin}.json"
     with open(descriptor, "r") as f:
-        version = json.load(f)["version"]
+        j = json.load(f)
+        version = j.get("version")
+        data_version = j["data_version"]
     plugins.append({
         "name": plugin,
-        "version": version
+        "data_version": data_version
     })
+    if version:
+        plugins[-1]["version"] = version
 
 with open(f"meta-{arch}.json", "w") as f:
     json.dump({
