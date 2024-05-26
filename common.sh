@@ -53,6 +53,7 @@ f5m_split_data() {
   cd $DESTDIR$INSTALL_PREFIX
   rm -rf ../data
   mkdir -p ../data
+  rm -rf share/{icons,metainfo} # useless for macOS
   for dir in "include" "share"; do
     if [[ -d $dir ]]; then
       mv $dir ../data/$dir
