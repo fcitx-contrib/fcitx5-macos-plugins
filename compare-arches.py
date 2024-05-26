@@ -24,11 +24,11 @@ for plugin in all_plugins:
     elif not arm64:
         (x, a, d) = ("❌", "💀️", "❌")
     else:
-        if "version" in "x86_64":
+        if "version" in x86_64:
             x = "✅"
         else:
             x = "❌"
-        if "version" in "arm64":
+        if "version" in arm64:
             a = "✅"
         else:
             a = "❌"
