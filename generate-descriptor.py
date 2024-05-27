@@ -25,10 +25,14 @@ except:
 
 data_version = dirhash(data_dir, "md5")
 
+# Both data/ and fcitx/ have to contain descriptor,
+# so that updating either *-any or *-arm64 will update descriptor.
+
 plugin_dir = f"{data_dir}/plugin"
 
 os.makedirs(plugin_dir, exist_ok=True)
-with open(f"{plugin_dir}/{plugin}.json", "w") as f:
+descriptor_path = f"{plugin_dir}/{plugin}.json"
+with open(descriptor_path, "w") as f:
     descriptor = {
         "data_version": data_version,
         "files": files
@@ -38,3 +42,7 @@ with open(f"{plugin_dir}/{plugin}.json", "w") as f:
     if input_methods:
         descriptor["input_methods"] = input_methods
     json.dump(descriptor, f)
+
+if version:
+    os.makedirs(f"{cwd}/plugin")
+    os.system(f"cp {descriptor_path} {cwd}/plugin/{plugin}.json")
