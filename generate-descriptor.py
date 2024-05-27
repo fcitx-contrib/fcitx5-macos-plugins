@@ -44,5 +44,5 @@ with open(descriptor_path, "w") as f:
     json.dump(descriptor, f)
 
 if version:
-    os.makedirs(f"{cwd}/plugin")
+    os.makedirs(f"{cwd}/plugin", exist_ok=True)
     os.system(f"cp {descriptor_path} {cwd}/plugin/{plugin}.json")
