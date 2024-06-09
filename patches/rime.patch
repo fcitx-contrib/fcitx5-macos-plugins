@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 643b5ca..9b04182 100644
+index e96508c..835dfd6 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -16,7 +16,8 @@ find_package(PkgConfig REQUIRED)
+@@ -17,7 +17,8 @@ find_package(Pthread REQUIRED)
  
  if (NOT DEFINED RIME_TARGET)
      pkg_check_modules(Rime REQUIRED IMPORTED_TARGET "rime>=1.0.0")
@@ -11,4 +11,4 @@ index 643b5ca..9b04182 100644
 +    set(RIME_TARGET $<LINK_LIBRARY:WHOLE_ARCHIVE,"/tmp/fcitx5/lib/librime.a"> "-L/tmp/fcitx5/lib" leveldb yaml-cpp marisa opencc glog lua)
  endif()
  
- if ("${Rime_VERSION}" VERSION_LESS "1.7.0")
+ if ("${Rime_VERSION}" VERSION_LESS "1.8.0")
