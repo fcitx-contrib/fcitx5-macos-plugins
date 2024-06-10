@@ -37,3 +37,12 @@
 [submodule "fcitx5-table-extra"]
 	path = fcitx5-table-extra
 	url = https://github.com/fcitx/fcitx5-table-extra
+[submodule "fcitx5-hangul"]
+	path = fcitx5-hangul
+	url = https://github.com/fcitx/fcitx5-hangul
+[submodule "fcitx5-sayura"]
+	path = fcitx5-sayura
+	url = https://github.com/fcitx/fcitx5-sayura
+[submodule "fcitx5-chewing"]
+	path = fcitx5-chewing
+	url = https://github.com/fcitx/fcitx5-chewing

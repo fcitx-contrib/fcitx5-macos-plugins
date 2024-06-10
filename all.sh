@@ -3,6 +3,9 @@
 set -e
 
 all_plugins=(
+  chewing
+  hangul
+  sayura
   skk
   lua
   hallelujah
