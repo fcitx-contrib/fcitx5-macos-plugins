@@ -31,7 +31,8 @@ jobs:
         run: |
           brew install \
             extra-cmake-modules \
-            ninja
+            ninja \
+            go
           wget https://github.com/fcitx-contrib/fcitx5-macos-prebuilder/releases/download/latest/marisa-${{ matrix.arch }}.tar.bz2
           sudo tar xjvf marisa-${{ matrix.arch }}.tar.bz2 -C /usr/local bin/marisa-build
           pip install dirhash
