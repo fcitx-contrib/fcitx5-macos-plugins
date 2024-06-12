@@ -3,6 +3,7 @@
 set -e
 
 all_plugins=(
+  bamboo
   chewing
   hangul
   sayura

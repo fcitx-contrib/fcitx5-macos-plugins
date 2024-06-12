@@ -46,3 +46,6 @@
 [submodule "fcitx5-chewing"]
 	path = fcitx5-chewing
 	url = https://github.com/fcitx/fcitx5-chewing
+[submodule "fcitx5-bamboo"]
+	path = fcitx5-bamboo
+	url = https://github.com/fcitx/fcitx5-bamboo

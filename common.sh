@@ -64,7 +64,7 @@ f5m_split_data() {
 # params: IMs to auto add on plugin install
 f5m_make_tarball() {
   cd $DESTDIR$INSTALL_PREFIX
-  python $ROOT/generate-descriptor.py "$@"
+  python3 $ROOT/generate-descriptor.py "$@"
   tar cjvf ../../../$name-$ARCH.tar.bz2 *
 
   cd ../data
