@@ -1,8 +1,8 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index e96508c..835dfd6 100644
+index e96508c..cad8fea 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
-@@ -17,7 +17,8 @@ find_package(Pthread REQUIRED)
+@@ -17,9 +17,13 @@ find_package(Pthread REQUIRED)
  
  if (NOT DEFINED RIME_TARGET)
      pkg_check_modules(Rime REQUIRED IMPORTED_TARGET "rime>=1.0.0")
@@ -11,4 +11,70 @@ index e96508c..835dfd6 100644
 +    set(RIME_TARGET $<LINK_LIBRARY:WHOLE_ARCHIVE,"/tmp/fcitx5/lib/librime.a"> "-L/tmp/fcitx5/lib" leveldb yaml-cpp marisa opencc glog lua)
  endif()
  
++if ("${Rime_VERSION}" VERSION_LESS "1.10.0")
++    add_definitions(-DFCITX_RIME_NO_HIGHLIGHT_CANDIDATE)
++endif()
  if ("${Rime_VERSION}" VERSION_LESS "1.8.0")
+     add_definitions(-DFCITX_RIME_NO_DELETE_CANDIDATE)
+ endif()
+diff --git a/src/rimecandidate.cpp b/src/rimecandidate.cpp
+index fc84a03..79c461d 100644
+--- a/src/rimecandidate.cpp
++++ b/src/rimecandidate.cpp
+@@ -75,6 +75,9 @@ RimeCandidateList::RimeCandidateList(RimeEngine *engine, InputContext *ic,
+     setPageable(this);
+     setBulk(this);
+     setActionable(this);
++#ifndef FCITX_RIME_NO_HIGHLIGHT_CANDIDATE
++    setBulkCursor(this);
++#endif
+ 
+     const auto &menu = context.menu;
+ 
+@@ -187,4 +190,19 @@ void RimeCandidateList::triggerAction(const CandidateWord &candidate, int id) {
+         }
+     }
+ }
++
++#ifndef FCITX_RIME_NO_HIGHLIGHT_CANDIDATE
++int RimeCandidateList::globalCursorIndex() const {
++    return -1; // No API available.
++}
++
++void RimeCandidateList::setGlobalCursorIndex(int index) {
++    auto session = engine_->state(ic_)->session(false);
++    if (!session) {
++        throw std::invalid_argument("Invalid session");
++    }
++    auto *api = engine_->api();
++    api->highlight_candidate(session, index);
++}
++#endif
+ } // namespace fcitx
+diff --git a/src/rimecandidate.h b/src/rimecandidate.h
+index 6c96898..a52b87a 100644
+--- a/src/rimecandidate.h
++++ b/src/rimecandidate.h
+@@ -52,6 +52,10 @@ class RimeCandidateList final : public CandidateList,
+     ,
+                                 public BulkCandidateList
+ #endif
++#ifndef FCITX_RIME_NO_HIGHLIGHT_CANDIDATE
++    ,
++                                public BulkCursorCandidateList
++#endif
+ {
+ public:
+     RimeCandidateList(RimeEngine *engine, InputContext *ic,
+@@ -94,6 +98,11 @@ public:
+     int totalSize() const override;
+ #endif
+ 
++#ifndef FCITX_RIME_NO_HIGHLIGHT_CANDIDATE
++    int globalCursorIndex() const override;
++    void setGlobalCursorIndex(int index) override;
++#endif
++
+     bool hasAction(const CandidateWord &candidate) const override;
+     std::vector<CandidateAction>
+     candidateActions(const CandidateWord &candidate) const override;
