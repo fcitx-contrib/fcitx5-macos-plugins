@@ -78,3 +78,21 @@ index 6c96898..a52b87a 100644
      bool hasAction(const CandidateWord &candidate) const override;
      std::vector<CandidateAction>
      candidateActions(const CandidateWord &candidate) const override;
+diff --git a/src/rimestate.cpp b/src/rimestate.cpp
+index a8fe4b9..c54100c 100644
+--- a/src/rimestate.cpp
++++ b/src/rimestate.cpp
+@@ -79,7 +79,12 @@ void RimeState::clear() {
+     }
+ }
+ 
+-void RimeState::activate() { maybeSyncProgramNameToSession(); }
++void RimeState::activate() {
++    maybeSyncProgramNameToSession();
++    if (session_) {
++        engine_->api()->set_option(session_->id(), "_linear", true);
++    }
++}
+ 
+ std::string RimeState::subMode() {
+     std::string result;
