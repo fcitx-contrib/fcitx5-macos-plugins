@@ -70,5 +70,5 @@ for plugin, ims in plugins.items():
     os.chdir(f"{plugin}/tmp/fcitx5")
     ensure(f"python {build_dir}/../generate-descriptor.py {ims[0]}")
     os.chdir("../data")
-    ensure(f"tar cjvf {build_dir}/{plugin}-any.tar.bz2 *")
+    ensure(f"tar cjvf {build_dir}/{plugin}-any.tar.bz2 --no-xattrs *")
     os.chdir(build_dir)

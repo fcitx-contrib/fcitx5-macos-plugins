@@ -65,10 +65,10 @@ f5m_split_data() {
 f5m_make_tarball() {
   cd $DESTDIR$INSTALL_PREFIX
   python3 $ROOT/generate-descriptor.py "$@"
-  tar cjvf ../../../$name-$ARCH.tar.bz2 *
+  tar cjvf ../../../$name-$ARCH.tar.bz2 --no-xattrs *
 
   cd ../data
-  tar cjvf ../../../$name-any.tar.bz2 *
+  tar cjvf ../../../$name-any.tar.bz2 --no-xattrs *
 }
 
 set -x
