@@ -82,7 +82,7 @@ index 3ecc012..6bec003 100644
          this, "UserDataDir", _("User data dir"),
          stringutils::concat(
 diff --git a/src/rimestate.cpp b/src/rimestate.cpp
-index a8fe4b9..5dbc18f 100644
+index a8fe4b9..e180c48 100644
 --- a/src/rimestate.cpp
 +++ b/src/rimestate.cpp
 @@ -11,6 +11,7 @@
@@ -107,7 +107,26 @@ index a8fe4b9..5dbc18f 100644
  
  std::string RimeState::subMode() {
      std::string result;
-@@ -440,6 +446,30 @@ void RimeState::updateUI(InputContext *ic, bool keyRelease) {
+@@ -226,11 +232,13 @@ void RimeState::keyEvent(KeyEvent &event) {
+         engine_->instance()->resetCompose(ic);
+     }
+ 
+-    updateUI(ic, event.isRelease());
+-    if (!event.isRelease() && !lastSchema.empty() &&
+-        lastSchema == currentSchema() && ic->inputPanel().empty() &&
+-        !changedOptions_.empty()) {
+-        showChangedOptions();
++    if (event.accepted()) {
++        updateUI(ic, event.isRelease());
++        if (!event.isRelease() && !lastSchema.empty() &&
++            lastSchema == currentSchema() && ic->inputPanel().empty() &&
++            !changedOptions_.empty()) {
++            showChangedOptions();
++        }
+     }
+ }
+ 
+@@ -440,6 +448,30 @@ void RimeState::updateUI(InputContext *ic, bool keyRelease) {
  
  void RimeState::release() { session_.reset(); }
  
