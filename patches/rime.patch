@@ -12,88 +12,11 @@ index aa85bb6..cad8fea 100644
  endif()
  
  if ("${Rime_VERSION}" VERSION_LESS "1.10.0")
-diff --git a/src/rimeengine.cpp b/src/rimeengine.cpp
-index 68c2044..090ee37 100644
---- a/src/rimeengine.cpp
-+++ b/src/rimeengine.cpp
-@@ -482,11 +482,22 @@ void RimeEngine::activate(const InputMethodEntry & /*entry*/,
- 
- void RimeEngine::deactivate(const InputMethodEntry &entry,
-                             InputContextEvent &event) {
--    if (event.type() == EventType::InputContextSwitchInputMethod &&
--        *config_.commitWhenDeactivate) {
-+    if (event.type() == EventType::InputContextSwitchInputMethod) {
-         auto *inputContext = event.inputContext();
-         auto *state = this->state(inputContext);
--        state->commitPreedit(inputContext);
-+        switch (*config_.switchInputMethodBehavior) {
-+        case SwitchInputMethodBehavior::Clear:
-+            break;
-+        case SwitchInputMethodBehavior::CommitRawInput:
-+            state->commitInput(inputContext);
-+            break;
-+        case SwitchInputMethodBehavior::CommitComposingText:
-+            state->commitComposing(inputContext);
-+            break;
-+        case SwitchInputMethodBehavior::CommitCommitPreview:
-+            state->commitPreedit(inputContext);
-+            break;
-+        }
-     }
-     reset(entry, event);
- }
-diff --git a/src/rimeengine.h b/src/rimeengine.h
-index 3ecc012..6bec003 100644
---- a/src/rimeengine.h
-+++ b/src/rimeengine.h
-@@ -63,6 +63,18 @@ enum class PreeditMode { No, ComposingText, CommitPreview };
- FCITX_CONFIG_ENUM_NAME_WITH_I18N(PreeditMode, N_("Do not show"),
-                                  N_("Composing text"), N_("Commit preview"))
- 
-+enum class SwitchInputMethodBehavior {
-+    Clear,
-+    CommitRawInput,
-+    CommitComposingText,
-+    CommitCommitPreview
-+};
-+
-+FCITX_CONFIG_ENUM_NAME_WITH_I18N(SwitchInputMethodBehavior, N_("Clear"),
-+                                 N_("Commit raw input"),
-+                                 N_("Commit composing text"),
-+                                 N_("Commit commit preview"))
-+
- FCITX_CONFIGURATION(
-     RimeEngineConfig,
-     OptionWithAnnotation<PreeditMode, PreeditModeI18NAnnotation> preeditMode{
-@@ -78,9 +90,12 @@ FCITX_CONFIGURATION(
-         this, "PreeditCursorPositionAtBeginning",
-         _("Fix embedded preedit cursor at the beginning of the preedit"),
-         !isAndroid() && !isApple()};
--    Option<bool> commitWhenDeactivate{
--        this, "Commit when deactivate",
--        _("Commit current text when deactivating"), true};
-+    OptionWithAnnotation<SwitchInputMethodBehavior,
-+                         SwitchInputMethodBehaviorI18NAnnotation>
-+        switchInputMethodBehavior{
-+            this, "SwitchInputMethodBehavior",
-+            _("Action when switching input method"),
-+            SwitchInputMethodBehavior::CommitCommitPreview};
-     ExternalOption userDataDir{
-         this, "UserDataDir", _("User data dir"),
-         stringutils::concat(
 diff --git a/src/rimestate.cpp b/src/rimestate.cpp
-index a8fe4b9..e180c48 100644
+index f986e50..e8901ba 100644
 --- a/src/rimestate.cpp
 +++ b/src/rimestate.cpp
-@@ -11,6 +11,7 @@
- #include "rimesession.h"
- #include <algorithm>
- #include <cstdint>
-+#include <cstring>
- #include <fcitx-utils/capabilityflags.h>
- #include <fcitx-utils/i18n.h>
- #include <fcitx-utils/key.h>
-@@ -79,7 +80,12 @@ void RimeState::clear() {
+@@ -80,7 +80,12 @@ void RimeState::clear() {
      }
  }
  
@@ -107,7 +30,7 @@ index a8fe4b9..e180c48 100644
  
  std::string RimeState::subMode() {
      std::string result;
-@@ -226,11 +232,13 @@ void RimeState::keyEvent(KeyEvent &event) {
+@@ -227,11 +232,13 @@ void RimeState::keyEvent(KeyEvent &event) {
          engine_->instance()->resetCompose(ic);
      }
  
@@ -126,47 +49,3 @@ index a8fe4b9..e180c48 100644
      }
  }
  
-@@ -440,6 +448,30 @@ void RimeState::updateUI(InputContext *ic, bool keyRelease) {
- 
- void RimeState::release() { session_.reset(); }
- 
-+void RimeState::commitInput(InputContext *ic) {
-+    if (auto *api = engine_->api()) {
-+        if (auto input = api->get_input(this->session())) {
-+            if (std::strlen(input) > 0) {
-+                ic->commitString(input);
-+            }
-+        }
-+    }
-+}
-+
-+void RimeState::commitComposing(InputContext *ic) {
-+    if (auto *api = engine_->api()) {
-+        RIME_STRUCT(RimeContext, context);
-+        auto session = this->session();
-+        if (!api->get_context(session, &context)) {
-+            return;
-+        }
-+        if (context.composition.length > 0) {
-+            ic->commitString(context.composition.preedit);
-+        }
-+        api->free_context(&context);
-+    }
-+}
-+
- void RimeState::commitPreedit(InputContext *ic) {
-     if (auto *api = engine_->api()) {
-         RIME_STRUCT(RimeContext, context);
-diff --git a/src/rimestate.h b/src/rimestate.h
-index 07a73e1..6b2a1dc 100644
---- a/src/rimestate.h
-+++ b/src/rimestate.h
-@@ -43,6 +43,8 @@ public:
-     void updatePreedit(InputContext *ic, const RimeContext &context);
-     void updateUI(InputContext *ic, bool keyRelease);
-     void release();
-+    void commitInput(InputContext *ic);
-+    void commitComposing(InputContext *ic);
-     void commitPreedit(InputContext *ic);
-     std::string subMode();
-     std::string subModeLabel();
