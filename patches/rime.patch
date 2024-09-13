@@ -13,7 +13,7 @@ index aa85bb6..cad8fea 100644
  
  if ("${Rime_VERSION}" VERSION_LESS "1.10.0")
 diff --git a/src/rimestate.cpp b/src/rimestate.cpp
-index f986e50..e8901ba 100644
+index f986e50..76a5acd 100644
 --- a/src/rimestate.cpp
 +++ b/src/rimestate.cpp
 @@ -80,7 +80,12 @@ void RimeState::clear() {
@@ -30,22 +30,3 @@ index f986e50..e8901ba 100644
  
  std::string RimeState::subMode() {
      std::string result;
-@@ -227,11 +232,13 @@ void RimeState::keyEvent(KeyEvent &event) {
-         engine_->instance()->resetCompose(ic);
-     }
- 
--    updateUI(ic, event.isRelease());
--    if (!event.isRelease() && !lastSchema.empty() &&
--        lastSchema == currentSchema() && ic->inputPanel().empty() &&
--        !changedOptions_.empty()) {
--        showChangedOptions();
-+    if (event.accepted()) {
-+        updateUI(ic, event.isRelease());
-+        if (!event.isRelease() && !lastSchema.empty() &&
-+            lastSchema == currentSchema() && ic->inputPanel().empty() &&
-+            !changedOptions_.empty()) {
-+            showChangedOptions();
-+        }
-     }
- }
- 
