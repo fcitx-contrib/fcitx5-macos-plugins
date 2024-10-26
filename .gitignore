@@ -2,3 +2,4 @@
 build
 *.bz2
 meta-*.json
+cache/*mozc*

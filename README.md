@@ -8,6 +8,7 @@ Build plugins for [fcitx5-macos](https://github.com/fcitx-contrib/fcitx5-macos).
 * [chewing](https://github.com/fcitx/fcitx5-chewing): LGPL-2.1-or-later
 
 ### Japanese
+* [mozc](https://github.com/fcitx/mozc): BSD-3-Clause
 * [skk](https://github.com/fcitx/fcitx5-skk): GPL-3.0-or-later
 * [anthy](https://github.com/fcitx/fcitx5-anthy): GPL-2.0-or-later
 

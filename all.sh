@@ -3,6 +3,7 @@
 set -e
 
 all_plugins=(
+  mozc
   bamboo
   chewing
   hangul
