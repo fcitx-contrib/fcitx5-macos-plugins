@@ -8,6 +8,7 @@ for file in libmozc-$ARCH.so mozc_server-$ARCH mozc-addon.conf mozc.conf; do
 done
 cp $CACHE_DIR/libmozc-$ARCH.so $DESTDIR$INSTALL_PREFIX/lib/fcitx5/libmozc.so
 cp $CACHE_DIR/mozc_server-$ARCH $DESTDIR$INSTALL_PREFIX/lib/mozc/mozc_server
+chmod +x $DESTDIR$INSTALL_PREFIX/lib/mozc/mozc_server
 cp $CACHE_DIR/mozc-addon.conf $DESTDIR$INSTALL_PREFIX/share/fcitx5/addon/mozc.conf
 cp $CACHE_DIR/mozc.conf $DESTDIR$INSTALL_PREFIX/share/fcitx5/inputmethod/mozc.conf
 
