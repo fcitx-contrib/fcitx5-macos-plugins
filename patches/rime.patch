@@ -1,5 +1,5 @@
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index aa85bb6..cad8fea 100644
+index 1a1637a..41e63d7 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -17,7 +17,8 @@ find_package(Pthread REQUIRED)
@@ -12,21 +12,19 @@ index aa85bb6..cad8fea 100644
  endif()
  
  if ("${Rime_VERSION}" VERSION_LESS "1.10.0")
-diff --git a/src/rimestate.cpp b/src/rimestate.cpp
-index f986e50..76a5acd 100644
---- a/src/rimestate.cpp
-+++ b/src/rimestate.cpp
-@@ -80,7 +80,12 @@ void RimeState::clear() {
-     }
- }
+diff --git a/src/CMakeLists.txt b/src/CMakeLists.txt
+index 0854a9a..915977f 100644
+--- a/src/CMakeLists.txt
++++ b/src/CMakeLists.txt
+@@ -23,6 +23,11 @@ else()
+ endif()
  
--void RimeState::activate() { maybeSyncProgramNameToSession(); }
-+void RimeState::activate() {
-+    maybeSyncProgramNameToSession();
-+    if (session_) {
-+        engine_->api()->set_option(session_->id(), "_linear", true);
-+    }
-+}
- 
- std::string RimeState::subMode() {
-     std::string result;
+ add_library(rime MODULE ${RIME_SOURCES})
++target_link_options(rime PUBLIC
++  LINKER:-U,_f5m_is_linear_layout
++  LINKER:-U,_f5m_is_vertical_rl
++  LINKER:-U,_f5m_is_vertical_lr
++)
+ target_link_libraries(rime ${RIME_LINK_LIBRARIES})
+ install(TARGETS rime DESTINATION "${CMAKE_INSTALL_LIBDIR}/fcitx5")
+ fcitx5_translate_desktop_file(rime.conf.in rime.conf)
